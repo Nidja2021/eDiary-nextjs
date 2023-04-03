@@ -1,17 +1,16 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
-import PostCard from '@/components/Post'
+import PostCard from '@/components/post/Post'
 import { Post, PrismaClient } from '@prisma/client'
 import axios from 'axios'
 import { GetServerSideProps } from 'next'
 import { Session } from 'next-auth'
 import { getSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 const Home = ({ session, data } : IData): JSX.Element => {
-  const { user } = session
-  console.log('posts', data?.posts);
 
   return (
     <>
@@ -20,10 +19,10 @@ const Home = ({ session, data } : IData): JSX.Element => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='min-h-screen flex flex-col justify-center items-center'>
+      <main className='min-h-screen flex flex-col justify-start items-center'>
           <div>
             {!!data && data?.posts.map((post, index) => (
-              <PostCard key={index} post={post} user={user.name}/>
+              <PostCard key={index} post={post} />
             ))}
           </div>
       </main>

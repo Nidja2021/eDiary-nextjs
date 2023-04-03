@@ -25,6 +25,7 @@ export default function Navbar() {
           (
             <div className='flex gap-x-5 pr-3'>
               <h1>Welcome, {userName}</h1>
+              <Link href='/'>Home</Link>
               <Link href='/new-post'>New Post</Link>
               <button onClick={handleSignOut}>Sign Out</button>
             </div>

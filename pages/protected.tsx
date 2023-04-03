@@ -1,4 +1,4 @@
-import PostCard from '@/components/Post'
+import PostCard from '@/components/post/Post'
 import { Post, PrismaClient } from '@prisma/client'
 import axios from 'axios'
 import { GetServerSideProps } from 'next'
