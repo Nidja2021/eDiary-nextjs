@@ -16,13 +16,14 @@ const Home = ({ session, data } : IData): JSX.Element => {
     <>
       <Head>
         <title>eDiary</title>
+        {/* <meta charset="utf-8" /> */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className='min-h-screen flex flex-col justify-start items-center'>
           <div>
-            {!!data && data?.posts.map((post, index) => (
-              <PostCard key={index} post={post} />
+            {!!data && data?.posts.map((post: Post) => (
+              <PostCard key={post.id} post={post} />
             ))}
           </div>
       </main>

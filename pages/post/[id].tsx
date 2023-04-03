@@ -1,38 +1,37 @@
 import { Post } from '@prisma/client'
 import axios from 'axios'
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
+import UpdatePost from '@/components/post/UpdatePost'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import React, { FormEventHandler, useState } from 'react'
 
-export default function EditPost({ post }: IPost) {
-  const [textValue, setTextValue] = useState(post.text)
+export default function EditPost() {
+  const [post, setPost] = useState({})
+  const [isPostLoaded, setIsPostLoaded] = useState(false)
   const router = useRouter()
 
-  const splitDate = post.createdAt.toString().split('T')
-  
+  const fetchPost = async () => {
+    const { id } = router.query
 
-  const handleNewPost: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault()
-    const response = await axios.put(`http://localhost:3000/api/posts/${post.id}`, { text: textValue})
+    if (!id) {
+      router.push('/')
+      return
+    }
 
-    if (response.status === 200) router.push('/')
+    const response = await axios.get(`http://localhost:3000/api/posts/${id}`)
+    setIsPostLoaded(prev => !isPostLoaded)
+    setPost(response.data.post)
+    // return response.data.post
+   
   }
-  
+
+  useEffect(() => {
+    fetchPost()
+  }, [isPostLoaded])
+    
   return (
-    <div className='w-full min-h-screen flex flex-col justify-center items-center gap-y-3'>
-      <h1 className='font-bold text-[24px]'>{`Date: ${splitDate[0]}`}</h1>
-      <form onSubmit={handleNewPost} className='flex flex-col'>
-        <textarea 
-          className='w-[1000px] h-[500px] border-[1px] p-4'
-          value={textValue}
-          onChange={({ target }) => setTextValue(target.value)}
-        ></textarea>
-        <button 
-          className='w-[20%] py-3 bg-gray-800 text-white self-end'
-        >Submit</button>
-      </form>
-      
-    </div>
+    <UpdatePost post={post} />
+    // <h1>ggsdgsd</h1>
   )
 }
 
