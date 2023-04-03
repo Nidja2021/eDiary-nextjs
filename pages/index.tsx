@@ -20,8 +20,9 @@ const Home = ({ session, data } : IData): JSX.Element => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='min-h-screen flex flex-col justify-start items-center'>
-          <div>
+      <main className=' min-auto'>
+      <h1 className='text-gray-800 font-bold text-[30px] text-center mt-5'>My eDiary</h1>
+          <div className='flex flex-col-reverse justify-start items-center gap-y-5 mt-5 px-5'>
             {!!data && data?.posts.map((post: Post) => (
               <PostCard key={post.id} post={post} />
             ))}

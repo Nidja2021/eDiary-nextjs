@@ -11,23 +11,22 @@ export default function Navbar() {
 
   const handleSignOut = async () => {
     await signOut()
-    router.push('/auth/login')
   }
 
   return (
-    <div className='w-full py-5 bg-gray-800 text-white flex justify-between '>
+    <div className='w-full py-5 bg-gray-800 text-white flex justify-between px-10'>
       <div className='pl-3'>
-        <h1>eDiary</h1>
+        <Link href='/'>eDiary</Link>
       </div>
       <div>
         {
           status === 'authenticated' ? 
           (
             <div className='flex gap-x-5 pr-3'>
-              <h1>Welcome, {userName}</h1>
-              <Link href='/'>Home</Link>
-              <Link href='/new-post'>New Post</Link>
-              <button onClick={handleSignOut}>Sign Out</button>
+              <h1 className='text-md'>Welcome, {userName}</h1>
+              <Link href='/' className='text-md'>Home</Link>
+              <Link href='/new-post' className='text-md'>New Post</Link>
+              <button onClick={handleSignOut} className='text-md'>Sign Out</button>
             </div>
           ) : 
           (

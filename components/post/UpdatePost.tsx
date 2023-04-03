@@ -12,7 +12,7 @@ interface IPost {
 
 function UpdatePost({ post } : IPost) {
   const [editorState, setEditorState] = useState(() =>
-    EditorState.createWithContent(ContentState.createFromText(post.text))
+    EditorState.createWithContent(ContentState.createFromText(post.text.toString()))
   );
   const router = useRouter()
 
@@ -31,9 +31,9 @@ function UpdatePost({ post } : IPost) {
     const jsonString = JSON.stringify(rawContentState)
     const jsonParse = JSON.parse(jsonString)
     
-    // const response = await axios.put(`http://localhost:3000/api/posts/${post.id}`, { text: jsonParse.block[0].text })
+    const response = await axios.put(`http://localhost:3000/api/posts/${post.id}`, { text: jsonParse.blocks[0].text })
 
-    // if (response.status === 200) router.push('/')
+    if (response.status === 200) router.push('/')
   }
 
   return (
